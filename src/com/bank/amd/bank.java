@@ -61,11 +61,14 @@ public class bank {
 	
 	public void checkBalance() throws IOException{
 		
-		int accNo1;
+		int accNo1,isAccExist;
 
 		System.out.print("\n\t Please enter your account number: ");
 		accNo1 = Integer.parseInt(br.readLine());
-		cRecord(accNo1);
+		isAccExist = cRecord(accNo1);
+		if(isAccExist == -1) {
+			return;
+		}
 
 		try {
 			
@@ -91,11 +94,14 @@ public class bank {
 		
 		int accNo1;
 		double bal,ubal;
-		int amt;
+		int amt,isAccExist;
 
 		System.out.print("\n\t Please enter your account number: ");
 		accNo1 = Integer.parseInt(br.readLine());
-		cRecord(accNo1);
+		isAccExist = cRecord(accNo1);
+		if(isAccExist == -1) {
+			return;
+		}
 		
 		System.out.print("\n\t Please enter the amount to withdraw: ");
 		amt = Integer.parseInt(br.readLine());
@@ -142,11 +148,14 @@ public class bank {
 		
 		int accNo1;
 		double bal,ubal;
-		int amt;
+		int amt,isAccExist;
 		
 		System.out.print("\n\t Please enter your account number: ");
 		accNo1 = Integer.parseInt(br.readLine());
-		cRecord(accNo1);
+		isAccExist = cRecord(accNo1);
+		if(isAccExist == -1) {
+			return;
+		}
 
 		System.out.print("\n\t Please enter the amount to deposit: ");
 		amt = Integer.parseInt(br.readLine());
@@ -186,7 +195,7 @@ public class bank {
 		
 	}
 	
-	public void cRecord(int accNo1) {
+	public int cRecord(int accNo1) {
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -201,9 +210,11 @@ public class bank {
 		
 			if(x == 1) {
 				System.out.println("\n\t Welcome!");
+				return 1;
 			}
 			else {
 				System.out.println("\n\t Account does not exists, Please enter valid account number.");
+				return -1;
 			}
 			
 			}
@@ -211,6 +222,7 @@ public class bank {
 				System.out.println("\n\t Exception occured, Please enter valid account number");
 				
 			}
+		return -1;
 	}
 		
 	
@@ -263,3 +275,4 @@ public class bank {
 		
 	}
 }
+//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
