@@ -49,12 +49,15 @@ public class bank {
 			stmt.setDouble(4, balance);
 			
 			int i = stmt.executeUpdate();
-
+			
+			stmt.close();
+			cnn.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception occured");
 		}
+		
 
 		return accNo;
 	}
@@ -83,6 +86,9 @@ public class bank {
 			while(rs.next()) {
 				System.out.println("\n\t Your balance is: "+rs.getString(1));
 			} 
+			stmt.close();
+			rs.close();
+			cnn.close();
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -136,6 +142,9 @@ public class bank {
 					System.out.println("\n\t Your balance is: "+ubal);
 				}
 			}
+			stmt.close();
+			rs.close();
+			cnn.close();
 	
 			}
 			catch(Exception e) {
@@ -186,6 +195,9 @@ public class bank {
 					System.out.println("\n\t Your balance is: "+ubal);
 				}
 			}
+			stmt.close();
+			rs.close();
+			cnn.close();
 		
 			}
 			catch(Exception e) {
@@ -207,6 +219,9 @@ public class bank {
 			stmt.setInt(2, accNo1);
 			stmt.execute();
 			int x = stmt.getInt(1);
+			
+			stmt.close();
+			cnn.close();
 		
 			if(x == 1) {
 				System.out.println("\n\t Welcome!");
