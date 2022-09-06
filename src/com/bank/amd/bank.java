@@ -25,10 +25,7 @@ public class bank {
 	}
 	
 	public int openAcc() throws IOException {
-		
-		
-//		Random ran = new Random();
-		
+
 		System.out.print("\n\t Please enter your first name: ");
 		fname = br.readLine();
 		
@@ -39,19 +36,11 @@ public class bank {
 		balance = Double.parseDouble(br.readLine());
 		
 		accNo = (int)((Math.random()*100)+1);
-		
-//		System.out.println("acc No   "+accNo);
-		
 
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
-			String url = "jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech";
-			String user = "scott";
-			String pwd = "tiger";
-			
-			Connection cnn = DriverManager.getConnection(url, user, pwd);
+			Connection cnn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech", "scott", "tiger");
 			
 			PreparedStatement stmt = cnn.prepareStatement("insert into bank values(?,?,?,?)");
 			stmt.setInt(1, accNo);
@@ -60,21 +49,13 @@ public class bank {
 			stmt.setDouble(4, balance);
 			
 			int i = stmt.executeUpdate();
-			
-			
-//			System.out.println("\n\t Your account number is: "+accNo+"   "+i);
-			
-			
-			
+
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception occured");
 		}
-		
-		//new acc number??
-		
-		
+
 		return accNo;
 	}
 	
@@ -85,17 +66,11 @@ public class bank {
 		System.out.print("\n\t Please enter your account number: ");
 		accNo1 = Integer.parseInt(br.readLine());
 		cRecord(accNo1);
-		
 
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
-			String url = "jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech";
-			String user = "scott";
-			String pwd = "tiger";
-			
-			Connection cnn = DriverManager.getConnection(url, user, pwd);
+			Connection cnn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech", "scott", "tiger");
 			
 			PreparedStatement stmt = cnn.prepareStatement("select balance from bank where accNo = ?");
 			stmt.setInt(1, accNo1);
@@ -110,8 +85,6 @@ public class bank {
 				e.printStackTrace();
 				System.out.println("Exception occured");
 			}
-		
-		
 		}
 	
 	public void withdraw() throws IOException {
@@ -119,29 +92,18 @@ public class bank {
 		int accNo1;
 		double bal,ubal;
 		int amt;
-		
-//		bal = 1000.0;
-		
+
 		System.out.print("\n\t Please enter your account number: ");
 		accNo1 = Integer.parseInt(br.readLine());
 		cRecord(accNo1);
 		
-		//bal = select bal from bank where accNo = $accNo;
-		
 		System.out.print("\n\t Please enter the amount to withdraw: ");
 		amt = Integer.parseInt(br.readLine());
-		
-//		ubal = bal - amt;
-		
+			
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
-			String url = "jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech";
-			String user = "scott";
-			String pwd = "tiger";
-			
-			Connection cnn = DriverManager.getConnection(url, user, pwd);
+			Connection cnn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech", "scott", "tiger");
 			
 			PreparedStatement stmt = cnn.prepareStatement("select balance from bank where accNo = ?");
 			stmt.setInt(1, accNo1);
@@ -168,18 +130,12 @@ public class bank {
 					System.out.println("\n\t Your balance is: "+ubal);
 				}
 			}
-			
-			
-			
+	
 			}
 			catch(Exception e) {
 				e.printStackTrace();
 				System.out.println("Exception occured");
 			}
-		
-		//update bank set balance = $ubal where accNo = $accNo1
-		
-		
 	}
 	
 	public void deposit() throws IOException {
@@ -188,25 +144,17 @@ public class bank {
 		double bal,ubal;
 		int amt;
 		
-//		bal = 1000.0;
 		System.out.print("\n\t Please enter your account number: ");
 		accNo1 = Integer.parseInt(br.readLine());
 		cRecord(accNo1);
-		
-		//bal = select bal from bank where accNo = $accNo;
-		
+
 		System.out.print("\n\t Please enter the amount to deposit: ");
 		amt = Integer.parseInt(br.readLine());
 		
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
-			String url = "jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech";
-			String user = "scott";
-			String pwd = "tiger";
-			
-			Connection cnn = DriverManager.getConnection(url, user, pwd);
+			Connection cnn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech", "scott", "tiger");
 			
 			PreparedStatement stmt = cnn.prepareStatement("select balance from bank where accNo = ?");
 			stmt.setInt(1, accNo1);
@@ -229,9 +177,7 @@ public class bank {
 					System.out.println("\n\t Your balance is: "+ubal);
 				}
 			}
-			
-			
-			
+		
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -244,13 +190,7 @@ public class bank {
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
-			String url = "jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech";
-			String user = "scott";
-			String pwd = "tiger";
-			
-			Connection cnn = DriverManager.getConnection(url, user, pwd);
-			
+			Connection cnn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/orcl.iiht.tech", "scott", "tiger");
 			
 			CallableStatement stmt = cnn.prepareCall("{? = call chckRec(?)}");
 			
@@ -258,19 +198,16 @@ public class bank {
 			stmt.setInt(2, accNo1);
 			stmt.execute();
 			int x = stmt.getInt(1);
-			
-			
+		
 			if(x == 1) {
 				System.out.println("\n\t Welcome!");
 			}
 			else {
 				System.out.println("\n\t Account does not exists, Please enter valid account number.");
-//				System.exit(0);
 			}
 			
 			}
 			catch(Exception e) {
-//				e.printStackTrace();
 				System.out.println("\n\t Exception occured, Please enter valid account number");
 				
 			}
